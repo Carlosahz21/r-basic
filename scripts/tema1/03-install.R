@@ -28,7 +28,7 @@ operaciones <- function(x,y,nombre_op) {
     }
   } else {
     return(0) # En cualquier otro caso
-    print("operacion no encontrada")
+    print("operacion fallida")
   }
   
 }
