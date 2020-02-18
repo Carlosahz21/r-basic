@@ -11,22 +11,24 @@ magic(6)
 installed.packages()
 
 
-operaciones <- function(x,y,num_op) {
-  
-  if (num_op == 1) {
-    x+y #suma
-  } else if (num_op == 2) {
-    x-y #resta
-  } else if (num_op == 3) {
-    x*y #multiplicacion
-  } else if (num_op == 4) {
-    if (y != 0) {
-      x/y #division
+operaciones <- function(x,y,nombre_op) {
+  nombre_op <- tolower(nombre_op)
+  if (num_op == "suma") {
+    return(x+y) #suma
+  } else if (num_op == "resta") {
+    return(x-y) #resta
+  } else if (num_op == "multiplicacion") {
+    return(x*y) #multiplicacion
+  } else if (num_op == "division") {
+    if (y != 0) { 
+      return(x/y) #division
     } else {
-      0 # si y = 0
+      return(0) # si y = 0
+      print("division por cero no definida")
     }
   } else {
-    0 # En cualquier otro caso
+    return(0) # En cualquier otro caso
+    print("operacion no encontrada")
   }
   
 }
