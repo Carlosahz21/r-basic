@@ -10,6 +10,5 @@ A <- matrix(1:9,3,3)
 B <- matrix(4:15,4,3)
 C <- matrix(8:10,3,2)
 mi_lista <- list(A,B,C)
-#ejemplo de la extraccion de todos los elementos de la segunda columna
-# de las matrices en la lista
+#Extraccion de todos los elementos de la segunda columna de las matrices en la lista
 lapply(mi_lista, "[", , 2)
