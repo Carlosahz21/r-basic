@@ -74,7 +74,7 @@ qplot(carat, price, data = diamonds_muestra, color = color, size = table, geom =
 qplot(carat, price, data = diamonds_muestra, geom = c("smooth", "point"))
 qplot(color, data = diamonds)
 qplot(log(carat), log(price), data=diamonds)
-qplot(color, price/carat,data=diamonds, geom = "jitter")
+qplot(color, price/carat,data=diamonds, geom = "jitter", color = color)
 qplot(color, price/carat, data=diamonds, geom = "boxplot")
 
 #Simulacion

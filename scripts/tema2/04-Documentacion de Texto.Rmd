@@ -43,7 +43,7 @@ elipsis: ...
 
 ecuaciones en línea $S = \pi\cdot r^2$.
 
-imagen ![](../../teoria/Imgs/logo.png)
+imagen ![](../../teoria/Imgs/Pok.png)
 
 *** 
 
