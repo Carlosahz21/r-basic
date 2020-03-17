@@ -1,0 +1,71 @@
+---
+title: "Ejercicios Usando Latex"
+author: "Carlos Meneses"
+date: "13/3/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# PRODUCTO NOTABLE
+
+La formula del producto notable es:
+
+$$(a+b)^2=a^2+2ab+b^2$$
+
+```{r}
+bin2 <- function(a,b) {
+  a^2+2*a*b+b^2
+}
+bin2(2,3)
+```
+
+# BINOMIO DE NEWTON
+
+$$(a+b)^n=\sum_{k=0}^{n} {n\choose k}\cdot a^{n-k}\cdot b^k$$
+
+```{r}
+binomioNewton <- function(a,b,n) {
+  sum(choose(n,(0:n))*a^(n-(0:n))*b^(0:n))
+}
+binomioNewton(1,3,3)
+```
+
+# MATRIZ INVERSA  
+
+La Matriz inversa de A es:
+
+$$A^{-1}=\dfrac{adj(A^{T})}{|A|}$$
+
+Calcular la matriz inversa de $A$:
+$$A = \begin{pmatrix} 5 & 0 & 1 \\ 3 & 0 & 0 \\ 5 & 1 & 1 \end{pmatrix}$$
+                      
+                      
+En R se crean las siguientes funciones:
+                      
+```{r comment=NA}
+library(matlib)
+
+A <- cbind(c(5,0,1),c(3,0,0),c(5,1,1))
+
+adjunta <- function(X) {
+  C <- matrix(rep(0,length(X)),nrow(X),ncol(X))
+  for (i in seq(1,nrow(X))) {
+    for (j in seq(1,nrow(X))) {
+      C[i,j] <- cofactor(X,i,j)
+    }
+  }
+  return(t(C))
+}
+
+inversa <- function(Y) {
+  Z <- (1/det(Y))*adjunta(Y)
+  return(Z)
+}
+
+invA <- inversa(A)
+invA
+```
+
