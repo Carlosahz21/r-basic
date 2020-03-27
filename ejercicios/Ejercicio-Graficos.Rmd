@@ -1,0 +1,20 @@
+---
+title: "Representacion Grafica en R"
+author: "Carlos Meneses"
+date: "27/3/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Representacion Grafica 
+
+```{r}
+x <- seq(-20,20,0.05)
+length(x)
+par(bg = "#E1D6D4", col="#4770A5", pch = ".")
+plot(x,x*sin(x), xlab = expression(x), ylab = expression(sin(x)), main = "Funcion de Grafico",type = "b", lty = 2)
+```
+

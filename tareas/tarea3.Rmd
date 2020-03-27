@@ -8,7 +8,7 @@ output: pdf_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-#Ejercicios
+# Ejercicios
 
 1. Crear un vector llamado "Harry" formado por la sucesión de números consecutivos entre el -10 y 27. Devolver ele elemento 7 del vector
 
