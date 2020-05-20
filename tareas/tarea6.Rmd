@@ -1,0 +1,84 @@
+---
+title: "Tarea 6"
+author: "Carlos Meneses"
+date: "2/4/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Representacion Gráfica
+
+## Ejercicio  1
+
+```{r figura 1, fig.align='center'}
+par(bg="#fafafa", col="#7E7270")
+curve(x^2-3*x+30, xlim=c(-15,15), xlab=expression(x), ylab=expression(x^2-3*x+30), 
+      main="Una Parábola", col="#4982A3", lwd=2)
+```
+
+## Ejercicio 2
+función: $y = x^2-3x+30$
+
+```{r figura 2, fig.align='center'}
+f <- function(x) {
+  return(x^2-3*x+30)
+}
+i <- seq(-15,15)
+par(bg="#fafafa", col="#7E7270")
+plot(f(i), xlim=c(-15,15), xlab=expression(x), ylab=expression(x^2-3*x+30), 
+      main="Una Parábola", col="#4982A3", lwd=2)
+```
+
+## Ejercicio 3
+función: $y = 5e^x$ entre $(-10,25)$
+
+```{r figura 3, fig.align='center'}
+f <- function(x) {
+  return(5*exp(x))
+}
+par(bg="#fafafa", col="#7E7270", mfrow=c(1,2))
+normal = curve(f, xlim=c(-10,25), xlab=expression(x), ylab=expression(5*e^x), 
+              main ="Normal", col="#4982A3", lwd=2)
+semilog = curve(f, xlim=c(-10,25), log="y", xlab=expression(x), ylab=expression(5*e^x), 
+              main="Semilogaritmica", col="#CADB5C", lwd=2)
+```
+
+## Ejercicio 4
+funciones: $y_{1}=3x$, $y_{2}=-3x$ entre $(-10,20)$
+
+```{r figura 4, fig.align='center'}
+par(bg="#fafafa", col="#7E7270")
+y_1 = curve(3*x, xlim=c(-10,25), xlab=expression(x), ylab="", main="2 Rectas", 
+            col="blue", lwd=2)
+y_2 = curve(-3*x, xlim=c(-10,25), xlab=expression(x), ylab="", 
+            col="green", lwd=2, add=T)
+text(13,10,"La función 3x es azul y la -3x es verde")
+```
+
+## Ejercicio 5
+
+```{r figura 5, fig.align='center'}
+par(bg="#fafafa", col="#7E7270")
+y_1 = curve(3*x, xlim=c(-10,25), xlab=expression(x), ylab="", main="2 Rectas", 
+            col="blue", lwd=2)
+y_2 = curve(-3*x, xlim=c(-10,25), xlab=expression(x), ylab="", 
+            col="green", lwd=2, add=T)
+text(13,10,"La función 3x es azul y la -3x es verde")
+abline(h=0, col="red", lwd=5)
+```
+
+## Ejercicio 6 
+
+```{r figura 6, fig.align='center'}
+par(bg="#fafafa", col="#7E7270")
+y_1 = curve(3*x, xlim=c(-10,25), xlab=expression(x), ylab="", main="2 Rectas", 
+            col="blue", lwd=2)
+y_2 = curve(-3*x, xlim=c(-10,25), xlab=expression(x), ylab="", 
+            col="green", lwd=2, add=T)
+text(13,10,"La función 3x es azul y la -3x es verde")
+abline(h=0, col="red", lwd=5)
+curve(2*x+7, col="#D49648", lwd=2, add=T)
+```

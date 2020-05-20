@@ -2,7 +2,9 @@
 title: "Graficos"
 author: "Curso de Estadística Descriptiva"
 date: "22/12/2018"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -25,8 +27,10 @@ plot(2^(1:6))
 
 Si queremos representar una función $f(x)$:
 
+Lo que hace en el siguiente comando es tomar un rango de datos por defecto de $0$ a $1$ para el eje $X$, y graficar esta funcion sobre este rango, ya que se puerde ver en el comando `plot(f)` que solo se se pasa como parámetro la f sin argumentos    
+
 ```{r}
-f <- function(x){ sqrt(x) }
+f <- function(x){ x^3 }
 plot(f)
 ```
 
@@ -44,7 +48,6 @@ plot(fib, xlab = "n", ylab = expression(F[n]),
 plot(fib, xlab = "n", ylab = expression(F[n]),
      main = "Sucesión de Fibonacci", pch = 21, cex = 2,
      col = "powderblue", bg = "orchid", log = "y")
-par(mfrow = c(1,1))
 ```
 
 

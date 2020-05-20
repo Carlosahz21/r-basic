@@ -2,7 +2,10 @@
 title: "Representacion Grafica en R"
 author: "Carlos Meneses"
 date: "27/3/2020"
-output: pdf_document
+output:
+  html_document:
+    df_print: paged
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -11,10 +14,77 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Representacion Grafica 
 
-```{r}
+```{r figura 1, fig.align='center'}
+par(bg="#fafafa", col="#7E7270")
+estudiantes <- 1:15
+notas <- c(10,5,7,6,7,8,6,8,9,3,7,6,6,8,10)
+plot(estudiantes, notas, xlab="Estudiantes", ylab="Notas", pch=21, col="#8F5064", 
+     bg="#B7B48C", cex=3, lwd=3)
+```
+
+
+```{r figura 2, fig.align='center'}
 x <- seq(-20,20,0.05)
 length(x)
-par(bg = "#E1D6D4", col="#4770A5", pch = ".")
-plot(x,x*sin(x), xlab = expression(x), ylab = expression(sin(x)), main = "Funcion de Grafico",type = "b", lty = 2)
+par(bg="#fafafa", col="#7E7270")
+plot(x,x*sin(x), xlab=expression(x), ylab="f(x)", main="f(x) = xSin(X)",
+     col="#A9CB4A", type="l", lty=1, lwd=2)
+abline(h=seq(-15,15,5), v=seq(-20,20,5), col="#999999", lty=3)
+```
+
+```{r figura 3, fig.align='center'}
+n <- 1:20
+fib <- (1/sqrt(5))*(((1+sqrt(5))/2)^n-((1-sqrt(5))/2)^n)
+par(bg="#fafafa", col="#555555")
+plot(n, fib, pch=21, cex=1.5, lwd=2, col="#ADBF71", bg="#4E63D0", 
+     type="b", lty=4, xlab="n", ylab=expression(F[n]), main="Sucesion de Fibonacci")
+abline(h=seq(0,7000,1000), v=seq(0,20,2.5), col="#999999", lty=3)
+#puntos y texto
+points(2.5,6000, pch=21, cex=1.5, lwd=2, col="#333333", bg="#ABB67C")
+text(2.5, 6000, "Fibonacci", pos=3, cex=1, col="#7E7270")
+```
+
+```{r figura 4, fig.align='center'}
+par(bg="#fafafa", mfrow=c(2,3))
+x <- c(50:59)
+y <- c(2,9,25,3,100,77,62,54,19,40)
+plot(x,y, pch=23, cex=2, col="blue", type="p")
+plot(x,y, pch=23, cex=2, col="blueviolet", type="l", lwd=2, xaxp=c(50,59,9), 
+     yaxp=c(0,100,2))
+plot(x,y, pch=23, cex=2, col="gold", type="b")
+plot(x,y, pch=23, cex=2, col="deeppink", type="o", lty=3)
+plot(x,y, pch=23, cex=2, col="springgreen", type="h")
+plot(x,y, pch=23, cex=2, col="firebrick1", type="s")
+```
+```{r figura 5, fig.align='center'}
+par(bg="#fafafa", col="#35291D")
+x <- seq(0,2*pi,0.1)
+f1 = plot(x, sin(x), type="l", col="#2E4B3F", lwd=3, xlab="x", ylab="f(x)", 
+          main="Funciones Trigonométricas", xaxp=c(0,6,4))
+f2 = lines(x, cos(x), col="#C96925", lwd=3)
+f3 = lines(x, tan(x), col="#48B866", lwd=3)
+ejes = abline(h=seq(-1,1,0.5/2),v=seq(0,6,0.5), col="grey", lty=3)
+legend("bottomleft", legend=c("Seno", "Coseno", "Tan"), 
+       col=c("#2E4B3F", "#C96925", "#48B866"), lwd=4, lty=1) 
+```
+## Señal Basica con Ruido
+
+```{r señal, fig.align='center'}
+t <- seq(0,1,length.out=12000)
+v1 <-  round(20*runif(12000)-10)
+v2 <- round(16*runif(12000)-8)
+par(bg="#fafafa", col="#7E7270")
+plot(t, v1, xlim=c(0.38,0.40), xlab=expression(t), ylab=expression(V[1]), 
+     main="Señal", col="#4982A3", type="l", lty=1, lwd=1)
+lines(t, v2, xlim=c(0.38,0.40), col="orange", type="l", lty=1, lwd=1)
+abline(h=seq(-15,15,5), v=seq(0.38,0.40,(0.385-0.38)/2), col="#999999", lty=3)
+```
+
+## Gráfica Usando el paquete Plotly
+
+```{r plotly, fig.align="center", results=F}
+library(plotly)
+fig <- plot_ly(midwest, x = ~percollege, color = ~state, type="box")
+fig
 ```
 

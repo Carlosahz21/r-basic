@@ -85,6 +85,8 @@ def esPrimo(n):
             break
         else: 
             b = True
+    if n == 2:
+      b = True
     return b
 
 if esPrimo(n) == True:
@@ -94,7 +96,7 @@ elif esPrimo(n) == False:
 
 #Ejercicio 7
 texto = str(input("Ingrese una frase: "))
-lista_texto = texto.split()
+lista_texto = texto.split() #Separa la frases en palabras y las guarda en un lista
 filtro = [] #lista que almacena las primeras letras de cada palabra en mayuscula
 for i in lista_texto:
     filtro.append(i[0].upper())
@@ -128,17 +130,20 @@ texto = texto.split()
 texto_cesar = [] #lista para guardar las palabras codificadas
 
 def codCesar(texto): 
-    for i in texto:
-        indice = alfabeto.index(i) #devuelve el indice del elemento i 
-        texto = texto.replace(i,alfabeto_cod[indice])
+    for letra in texto:
+        indice = alfabeto.index(letra) #devuelve el indice del elemento i 
+        texto = texto.replace(letra, alfabeto_cod[indice])
     return texto
 
-for i, palabra in enumerate(texto):
+for palabra in texto:
     texto_cesar.append(codCesar(palabra))
+
+type(texto_cesar)
 
 texto_cesar = " ".join(texto_cesar) #concatena las palabras de la lista texto_cesar
 print("La frase codificada es: " + texto_cesar)
 
+type(texto_cesar)
 #Ejercicio 10
 nombres = ['Ana', 'Miguel', 'Carlos', 'Bianca', 'Eduardo', 'Gabriela', 'Margarita',"Raul"]
 
@@ -151,3 +156,23 @@ print("Orden Alfabetico Inverso: " + str(nombres))
 #tercera forma
 nombres.sort(key=len)  
 print("Orden por el tamaño de cada palabra: " + str(nombres))
+
+
+
+from sklearn.datasets import fetch_openml
+import matplotlib
+import matplotlib.pyplot as plt 
+
+mnist = fetch_openml("mnist_784")
+mnist
+X, y = mnist.data, mnist.target
+algun_digito = X[69996]
+algun_digito_img = algun_digito.reshape(28, 28)
+plt.imshow(algun_digito_img, cmap=matplotlib.cm.binary, 
+           interpolation="nearest")
+plt.axis("off")
+plt.show()
+
+import pa
+
+

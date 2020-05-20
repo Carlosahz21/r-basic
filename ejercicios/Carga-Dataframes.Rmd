@@ -1,0 +1,42 @@
+---
+title: "Carga DataFrames"
+author: "Carlos Meneses"
+date: "18/4/2020"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Carga Archivos Locales
+
+```{r}
+library(dplyr)
+```
+
+```{r carga_datos}
+bulls <- read.table("../data/bulls.dat", header = T, dec = ".")
+bulls %>% head(10)
+```
+
+## Carga desde una URL
+
+```{r carga-url}
+students = read.table("http://www.public.iastate.edu/~maitra/stat501/datasets/morel.dat",
+                      col.names = c("technicalDisciplines","aptitude","maths", "language",
+                                    "generalKnowledge"))
+head(students,10)
+```
+
+## Carga de Archivos CSV
+
+```{r csv}
+clases <- c(rep("integer", 2), rep("integer", 7))
+medals <- read.csv("../data/medals.csv", stringsAsFactors = F, header = T, 
+                   colClasses = c("integer", "character", "factor",rep("character", 3), rep("factor", 2)))
+medals <- as_tibble(medals)
+medals
+```

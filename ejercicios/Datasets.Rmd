@@ -1,0 +1,115 @@
+---
+title: "Datasets"
+author: "Carlos Meneses"
+date: "15/4/2020"
+output:
+  pdf_document: default
+  word_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Carga de un Dataset en un Dataframe
+
+```{r carga}
+data("iris")
+iris_df <- iris
+```
+## 10 primeros elementos
+
+```{r head}
+head(iris_df, 10)
+```
+
+## Informacion del Dataframe
+
+```{r infromacion}
+str(iris_df)
+```
+## Nombres de las Variables
+
+```{r names}
+names(iris_df) #ó tambien colnames(iris_df)
+```
+
+## Dimensiones del Dataframe
+
+```{r dimensiones}
+nrow(iris_df)
+ncol(iris_df)
+dim(iris_df)
+```
+
+## Acceso a las Variables e Indexado 
+Para acceder a las variables se usa el simbolo "$".
+```{r variables}
+iris_df$Sepal.Width[1:15]
+```
+
+## Indexado
+Obtener 15 observaciones aleatorias, con las variables `Petal.Width`, `Sepal.Width` y `Species` del dataframe `Iris`
+
+```{r indexado}
+set.seed(1341)
+iris_df[sort(sample(150, 15)), c("Petal.Width", "Sepal.Width", "Species")]
+```
+## Indexado 2
+Acceder a los elementos del dataframe `Iris` donde `Petal.Width` $<=1.3$
+
+```{r indexado2}
+iris_df[iris_df$Petal.Length <= 1.3,]
+```
+# Uso de Dplyr
+
+```{r dplyr, results='hide'} 
+library(dplyr)
+```
+
+## Indexado 3
+Acceder a los elementos del dataframe `Iris` donde `Petal.Width` $<=1.3$, usando el paquete `dplyr`
+
+```{r filter}
+iris_df %>% filter(Petal.Length<=1.3)
+```
+
+## Seleccionar varias columnas 
+Seleccione las columnas `Petal.Length`, `Sepal.Length` y `Species`
+
+```{r select}
+iris_df %>% select(Petal.Length, Sepal.Length, Species) %>% head(10)
+```
+
+## Agregar nuevas Variables
+Agregue una nueva variable al dataframe `iris_df` en la cual este la relación entre la variable
+`Petal.Width` y `Petal.Length` llamada `Rel.Petal`
+
+```{r mutate}
+iris_df %>% mutate(Rel.Petal=Petal.Width/Petal.Length) %>% head(10)
+```
+
+## Ordenar segun las columnas
+Ordene las 10 primeras observaciones del dataframe `iris_df` de acuerdo a la variable `Sepal.Width`
+
+```{r arrange}
+iris_df %>% arrange(Sepal.Width) %>% head(15)
+```
+
+## Agrupar variables de acuerdo a parametros cualitativos
+Agrupe una muestra aleatoria del dataframe `iris_df` de tamaño 15 de acuerdo a la variable `Species`
+```{r group_by}
+set.seed(1582)
+iris_df_sample <- iris_df[sort(sample(150,15)),]
+iris_df_sample %>% group_by(Species)
+```
+
+Calcule la media de las variables `Sepal.Length` y `Sepal.Width` agrupadas por especie
+
+```{r summerize}
+library(dplyr)
+iris_df %>% group_by(Species) %>% summarise(media_PL=mean(Petal.Length),
+                                            media_PW=mean(Petal.Width))
+```
+

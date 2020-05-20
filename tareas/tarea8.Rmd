@@ -1,0 +1,74 @@
+---
+title: "Tarea 8"
+author: "Carlos Meneses"
+date: "20/4/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Carga Dplyr 
+```{r dplyr, message=FALSE} 
+library(dplyr)
+```
+
+## Carga de Winter Olimpic Medals
+Cargar el dataframe `Winter Olimpic Medals` y responder a las siguientes preguntas
+ 
+```{r cargaDf}
+clases <- c(rep("integer", 2), rep("integer", 7))
+medals <- read.csv("../data/medals.csv", stringsAsFactors = F, header = T, 
+                   colClasses = c("integer", "character", "factor",rep("character", 3),
+                                  rep("factor", 2)))
+medals <- as_tibble(medals)
+medals %>% head(8)
+```
+
+## Ejercicio 1
+Cuantos Deportistas aparecen en el Dataframe?
+
+```{r ejercicio_1}
+medals %>% nrow()
+```
+
+## Ejercicio 2 
+Cuántos han ganado medallas de oro, cuantos plata y cuantos bronce?
+
+```{r ejercicio_2}
+medals %>% group_by(Medal) %>% count()
+```
+
+## Ejercicio 3
+En cuantos lugares se han hecho las olimpiadas de invierno?
+
+```{r ejercicio_3}
+medals %>% select(City) %>% unique()
+n_ciudades <- medals %>% select(City) %>% unique() %>% count()
+n_ciudades
+```
+
+## Ejercicio 4 
+Cuántos hombres y cuantas mujeres hay?
+
+```{r ejercicio_4}
+medals %>% group_by(Event.gender) %>% tally()
+```
+
+## Ejercicio 5
+En qué año participaron más deportistas?
+
+```{r ejercicio_5}
+medals %>% group_by(Year) %>% count() %>% as.data.frame() %>% filter(n == max(n))
+```
+
+## Ejercicio 6 
+El campo `NOC` indica el país del ganador de la medalla, ¿Que país puede presumír çde haber ganado más medallas de oro en los juegos de invierno entre 1960 y 1996?
+
+```{r ejercicio_6}
+medals %>% group_by(NOC) %>% 
+  filter(Year >= 1960 & Year <= 1996 & Medal == "Gold") %>% count() %>% 
+  as.data.frame() %>% filter(n == max(n))
+```
+

@@ -2,7 +2,10 @@
 title: "Documentacion Texto"
 author: "Carlos Meneses"
 date: "11/3/2020"
-output: pdf_document
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
 ---
 
 ```{r setup, include=FALSE}
@@ -21,7 +24,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ###### Título 6
 
-Esto es un texto llano. Podemos escribir sin ningún problema todo el texto que queramos para acompañar a tanto el código en `R` como las fórmulas en \LaTeX. 
+Esto es un texto llano. Podemos escribir sin ningsún problema todo el texto que queramos para acompañar a tanto el código en `R` como las fórmulas en \LaTeX 
 
 Esto sería una nueva línea de texto. Fijaros que para que separe los párrafos necesitamos siempre almenos un doble intro.
 

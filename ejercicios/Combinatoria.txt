@@ -1,0 +1,31 @@
+Variaciones
+	  n(n-1)..(n-k+1)(n-k)!        n!
+V(n,k) = ------------------------ = -------
+		 (n-k)!              (n-k)!
+
+ 5*4*3*2*1
+------------- 
+(3*2*1)*(2*1)
+
+Combinaciones
+ 	  V(n,k)
+C(n,k) = --------
+   	    k!
+	  V(n,k)    5*4*3
+C(n,k) = -------- = -----
+	    k!      3*2*1
+
+Cuantas placas se pueden formar con el alfabeto y los numeros del 0 al 9?
+26 letras
+10 numeros
+
+a) con repetición
+
+26*26*26 * 10*10*10*10 = 26^3*10^4
+__ __ __ - __ __ __ __
+
+b) sin repetición
+
+26*25*24 * 10*09*08*07 = V(26,3)*V(10,4)
+__ __ __ - __ __ __ __
+ 

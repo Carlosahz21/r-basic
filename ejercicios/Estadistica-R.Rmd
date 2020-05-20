@@ -1,0 +1,177 @@
+---
+title: "Estadistica con R"
+author: "Carlos Meneses"
+date: "14/5/2020"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Tablas de Frecuencias
+
+
+```{r datos}
+genero <- sample(c("H", "M"), size = 100, replace = TRUE)
+respuesta <- sample(c("Si", "No"), size = 100, replace = TRUE)
+ciudad <- sample(c("Quito", "Guayaquil", "Cuenca", "Ambato", "Ibarra"), size = 100, replace = TRUE)
+f_absolutas <- table(genero, respuesta, ciudad)
+f_absolutas
+```
+
+## Moda
+
+```{r moda}
+moda <- function(x) {
+  frec <- table(x)
+  names(which(frec == max(frec)))
+}
+
+moda(genero)
+moda(respuesta)
+moda(ciudad)
+```
+
+
+## Tabla de Frecuencias Absoluta
+
+```{r ftable}
+ftable(genero, respuesta, ciudad)
+```
+
+
+Para elegir las columnas en la fución `ftable()` se especifica las columnas con el parámetro `col.vars`
+
+```{r columnas}
+ftable(genero, respuesta, ciudad, col.vars = c("genero", "respuesta"))
+```
+
+## Frecuencias Relativas
+```{r f-relativas}
+prop.table(ftable(genero, respuesta, ciudad, col.vars = c("genero", "respuesta")))
+```
+
+## Filtrar en las Tablas 
+### Por Ejemplo:
+1. Cuantas mujeres de Quito repondieron `Si`
+```{r filtro-1}
+f_absolutas["M", "No", "Quito"]
+```
+
+2. Cuantas personas respondieron `No` en Ibarra 
+```{r filtro-2}
+f_absolutas[, "No", "Ibarra"]
+```
+
+## Tabla `HairEyeColor`
+Datos del Color de Ojos, color de cabello, y el genero de personas
+
+```{r tablaHEC}
+HairEyeColor
+```
+
+## Indexacion en la tabla `HairEyeColor`
+
+Cuantos Hombre y mujeres tienen el color de cabello negro y os ojos Azules
+```{r}
+HairEyeColor["Black", "Blue", ]
+```
+
+Calcular la tabla de frecuencias relativas agrupadas por el genero
+
+```{r}
+prop.table(HairEyeColor, margin = 3)
+```
+
+Calcular la tabla de frecuencias relativas conformada por todos los colores de ojos y cabello filtrada por el género
+
+```{r}
+colores <- aperm(HairEyeColor, perm = c("Sex", "Eye", "Hair"))
+prop.table(colores, margin = c(2, 3))
+```
+# Representacion Grafica 
+## Diagrama de Barras
+
+```{r EnergyDrink}
+EnergyDrink <- read.table("../data/EnergyDrink", header = T)
+```
+ 
+Tabla de frecuencias por columnas del Dataframe 
+
+```{r dplyr, message=FALSE}
+library(dplyr)
+```
+
+```{r EnergyMargin2}
+EnergyDrink %>% apply(MARGIN = 2, FUN = table)
+```
+
+
+Ahora para graficar las frecuencias de la variable `estudio` que son las materias, en un diagrama de barras, vamos a usar `barplot`
+
+```{r barras, fig.align='center'}
+par(bg = "#fafafa")
+EnergyDrink %>% select(estudio) %>% 
+                table %>% 
+                barplot(col=c("#8F5064","lightblue", "#B7B48C", "#A9CB4A"), 
+                        main ="Frecuencias Absolutas de las Materias", 
+                        xlab = "Materias", ylab = "Frecuencias")
+```
+
+Ahora vamos a ver la tabla de frecuencias relativas de Las materias por el genero
+
+```{r barGenero, fig.align='center'}
+par(bg = "#fafafa")
+EnergyDrink %>% select(sexo, estudio) %>% 
+                table %>% 
+                prop.table %>% 
+                barplot(col=c("#5E3C2A", "#C3B19B"), 
+                        main ="Frecuencias Relativas de las Materias \n agrupadas por Género", 
+                        xlab = "Materias", ylab = "Frecuencias", 
+                        beside = T, legend.text = c("Hombre", "Mujer"))
+```
+
+## Diagrama Circular(Pie Chart) 
+
+```{r pie, fig.align='center'}
+library(RColorBrewer)
+frecuencias_materias <- table(EnergyDrink$estudio)
+par(bg = "#fafafa")
+pie(frecuencias_materias, main = "Frecuencias Absolutas de las Materias", 
+    col = brewer.pal(n = 4, name = "Set3"))
+```
+
+## Diagrama de Sectores(Mosaic Plot)
+
+```{r mosaic, fig.align='center'}
+par(bg = "#fafafa")
+EnergyDrink %>% select(estudio, sexo) %>% table %>% 
+  mosaicplot(main = "Frecuencias Absolutas de Materias por Genero", 
+             col = brewer.pal(n = 8, name = "Accent"))
+```
+
+## Ejercicio Completo
+
+En la tabla `HairEyeColor`, quitaremos las la variable `Sex` para tener una tabla bidimensional con las frecuencuas de las variables `Hair` y `Eye`
+
+```{r HairEye}
+male <- HairEyeColor[, , "Male"]
+female <- HairEyeColor[, , "Female"]
+HairEye <- as.table(male + female)
+HairEye
+```
+
+Ahora vamos a cambiar a español el nombre de los niveles de cada variable  
+
+```{r HairEyeEspanol}
+dimnames(HairEye) <- list(
+  cabello = c("Negro", "Castaño", "Rojo", "Rubio"), 
+  ojos = c("Castaños", "Azules", "Avellanas", "Verdes")
+)
+HairEye
+```
+
